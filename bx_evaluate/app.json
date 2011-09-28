@@ -1,0 +1,70 @@
+{"name":"bx_evaluate",
+ "parallelism":"serial",
+ "version":"1.0.0",
+ "helpURI":"http://pods.iplantcollaborative.org/wiki/",
+ "label":"BLASTX Pipeline Evaluation",
+ "shortDescription":"Summarize 'final-out/results' file from bx_refseq_pipeline.",
+ "longDescription":"",
+ "author":"Josh Stein and Matt Vaughn",
+ "datePublished":"Fri Aug 05 05:00:00 2011",
+ "tags":["next-gen","annotation","rnaseq","blastx"],
+ "ontology":["http://sswapmeet.sswap.info/nextGen/bx_evaluate"],
+ "executionHost":"ranger.tacc.teragrid.org",
+ "executionType":"HPC",
+ "deploymentPath":"/iplant/home/vaughn/applications/bx_evaluate/",
+ "templatePath":"run.sh",
+ "testPath":"library/test.sh",
+ "checkponumberable":"false",
+ "modules":["purge","load TACC"],
+ "inputs":[
+    {"id":"input",
+     "value":
+        {"default":"/vaughn/bx/results",
+         "validator":"",
+         "required":true,
+         "visible":true},
+     "details":
+        {"label":"BX_refseq_pipeline output file",
+         "description":""},
+     "semantics":
+        {"ontology":["http://sswapmeet.sswap.info/util/File"],
+         "minCardinality":1,
+         "fileTypes":["tab-0"]}}],
+ "parameters":[
+    {"id":"assembly_name",
+     "value":
+        {"default":"plant_assembly",
+         "type":"string",
+         "validator":"",
+         "visible":true,
+         "required":true},
+     "details":
+        {"label":"Name of the transcriptome assembly",
+         "description":""},
+     "semantics":
+        {"ontology":["xs:string"]}},
+    {"id":"evalue",
+     "value":
+        {"default":0.01,
+         "type":"number",
+         "validator":"",
+         "visible":true,
+         "required":true},
+     "details":
+        {"label":"E-value threshold",
+         "description":""},
+     "semantics":
+        {"ontology":["xs:double"]}},
+    {"id":"blastmode",
+     "value":
+        {"default":"top",
+         "type":"string",
+         "validator":"",
+         "visible":true,
+         "required":true},
+     "details":
+        {"label":"BLASTX Pipeline mode: top or all",
+         "description":""},
+     "semantics":
+        {"ontology":["xs:string"]}}],
+ "outputs":[]}

@@ -1,0 +1,36 @@
+# Fri Aug  5 05:00:11 2011
+# Assembly: tomato
+# Database: RefSeq Release 47 plant and plastid sets, peptides
+# Blast mode: top hits collected
+# E-value threshold: 0.01
+
+
+Raw and parsed blastx output files are provided.
+File "match_report" describes the top ranked hit alignment for each 
+contig that satisfied the E-value threshold.  If blastx 
+was performed in "all" hit mode then values for hit_cnt and species_cnt 
+are relevant and refer to the number of unique RefSeq sequences and 
+species detected by a given contig, thereby giving indication of the 
+size and prevalence of the gene family. Remaining columns describe characteristics of the 
+top ranked hit and alignment. The value of hit_freq refers to how often the 
+RefSeq sequence was detected as the top ranked hit among the different 
+contigs (i.e. how many contigs detected the sequence as top hit).  This 
+can provide some indication of repetitiveness of the gene.  The 
+pct_id is the percent of amino acids matched in the hit. 
+The contig_cov and top_hit_cov are the fraction of length contained 
+in high scoring pairs for the contig and RefSeq hit respectively. 
+The qhlr is the ratio of the contig translation length (estimated by 
+dividing the contig nucleotide length by 3) to the length of the 
+aligned RefSeq protein. Note that the estimated length can be an 
+over-estimate as it does not account for 5- or 3-UTR. A qhlr < 1 means 
+the RefSeq protein is longer than the estimated translation length of 
+the contig. A qhlr > 1 means the estimated translation length of the contig 
+is greater than the length of the hit. 
+File "no_hit_contigs" lists the contigs that did not align at 
+threshold.
+File "quality_stats" gives distribution statistics on qhlr, hit coverage, 
+E-value and other metrics to gauge quality of the assembly and enable 
+comparison among different assemblies.
+File "diversity_report" gives counts for the number of unique RefSeq 
+sequences that were aligned broken down by species at the level of top 
+hits and considering all hits if run in "all" hits mode.
