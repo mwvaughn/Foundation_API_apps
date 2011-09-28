@@ -1,0 +1,79 @@
+{"name":"fastq_quality_trimmer",
+ "parallelism":"serial",
+ "version":"0.0.13",
+ "helpURI":"http://pods.iplantcollaborative.org/wiki/",
+ "label":"FASTX Quality Trimmer",
+ "shortDescription":"Trim bases from FASTQ based on base qualities",
+ "longDescription":"",
+ "author":"Matt Vaughn",
+ "datePublished":"Wed Sep 21 19:00:00 2011",
+ "tags":["next-gen","fastq"],
+ "ontology":["http://sswapmeet.sswap.info/nextGen/fastx_toolkit"],
+ "executionHost":"ranger.tacc.teragrid.org",
+ "executionType":"HPC",
+ "deploymentPath":"/iplant/home/vaughn/applications/fastx_toolkit",
+ "templatePath":"fastq_quality_trimmer.sh",
+ "testPath":"library/test.sh",
+ "checkponumberable":"false",
+ "modules":["purge","load TACC", "swap pgi gcc"],
+ "inputs":[
+    {"id":"input",
+     "value":
+        {"default":"",
+         "validator":"",
+         "required":true,
+         "visible":true},
+     "details":
+        {"label":"Select a FASTQ file",
+         "description":""},
+     "semantics":
+        {"ontology":["http://sswapmeet.sswap.info/util/Sequence"],
+         "minCardinality":1,
+         "fileTypes":["FASTQ-0"]}}],
+ "parameters":[{"id":"threshold",
+     "value":
+        {"default":20,
+         "type":"number",
+         "validator":"\\d++",
+         "visible":true,
+         "required":true},
+     "details":
+        {"label":"Minimum base quality threshold",
+         "description":"-t "},
+     "semantics":
+        {"ontology":["xs:integer"]}},
+    {"id":"length",
+     "value":
+        {"default":0,
+         "type":"number",
+         "validator":"\\d++",
+         "visible":true,
+         "required":true},
+     "details":
+        {"label":"Minimum sequence length (zero is no minimum length",
+         "description":"-l "},
+     "semantics":
+        {"ontology":["xs:integer"]}},
+    {"id":"q33",
+     "value":
+        {"default":1,
+         "type":"bool",
+         "validator":"\\d++",
+         "visible":true,
+         "required":true},
+     "details":
+        {"label":"FASTQ file is in PHRED33 format",
+         "description":"-Q33 "},
+     "semantics":
+        {"ontology":["xs:boolean"]}}],
+ "outputs":[{"id":"output",
+     "value":
+        {"default":"",
+         "validator":"fastx_quality*"},
+     "details":
+        {"label":"FASTQ file",
+         "description":""},
+     "semantics":
+        {"ontology":["http://sswapmeet.sswap.info/util/Sequence"],
+         "minCardinality":1,
+         "fileTypes":["FASTQ-0"]}}]}

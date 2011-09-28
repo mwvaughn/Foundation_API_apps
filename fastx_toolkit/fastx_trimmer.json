@@ -1,0 +1,81 @@
+{"name":"fastx_trimmer",
+ "parallelism":"serial",
+ "version":"0.0.13",
+ "helpURI":"http://pods.iplantcollaborative.org/wiki/",
+ "label":"FASTX Trimmer",
+ "shortDescription":"Trim bases from FASTQ by position",
+ "longDescription":"",
+ "author":"Matt Vaughn",
+ "datePublished":"Wed Sep 21 20:00:00 2011",
+ "tags":["next-gen","fastq"],
+ "ontology":["http://sswapmeet.sswap.info/nextGen/fastx_toolkit"],
+ "executionHost":"ranger.tacc.teragrid.org",
+ "executionType":"HPC",
+ "deploymentPath":"/iplant/home/vaughn/applications/fastx_toolkit",
+ "templatePath":"fastx_trimmer.sh",
+ "testPath":"library/test.sh",
+ "checkponumberable":"false",
+ "modules":["purge","load TACC", "swap pgi gcc"],
+ "inputs":[
+    {"id":"input",
+     "value":
+        {"default":"",
+         "validator":"",
+         "required":true,
+         "visible":true},
+     "details":
+        {"label":"Select a FASTQ file",
+         "description":""},
+     "semantics":
+        {"ontology":["http://sswapmeet.sswap.info/util/Sequence"],
+         "minCardinality":1,
+         "maxCardinality":1,
+         "fileTypes":["FASTQ-0"]}}],
+ "parameters":[{"id":"firstBase",
+     "value":
+        {"default":1,
+         "type":"number",
+         "validator":"\\d++",
+         "visible":true,
+         "required":true},
+     "details":
+        {"label":"First base to keep",
+         "description":"-f "},
+     "semantics":
+        {"ontology":["xs:integer"]}},
+    {"id":"lastBase",
+     "value":
+        {"default":"",
+         "type":"number",
+         "validator":"\\d++",
+         "visible":true,
+         "required":false},
+     "details":
+        {"label":"Last base to keep (optional)",
+         "description":"-l "},
+     "semantics":
+        {"ontology":["xs:integer"]}},
+    {"id":"q33",
+     "value":
+        {"default":1,
+         "type":"bool",
+         "validator":"\\d++",
+         "visible":true,
+         "required":true},
+     "details":
+        {"label":"FASTQ file is in PHRED33 format",
+         "description":"-Q33 "},
+     "semantics":
+        {"ontology":["xs:boolean"]}}],
+ "outputs":[{"id":"output",
+     "value":
+        {"default":"",
+         "validator":"fastx_trimmer_*"},
+     "details":
+        {"label":"FASTQ file",
+         "description":""},
+     "semantics":
+        {"ontology":["http://sswapmeet.sswap.info/util/Sequence"],
+         "minCardinality":1,
+         "maxCardinality":1,
+         "fileTypes":["FASTQ-0"]}}]}
