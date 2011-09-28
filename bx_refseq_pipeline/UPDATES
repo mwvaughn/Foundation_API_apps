@@ -1,0 +1,32 @@
+# Copy test data
+head -n 8192  /work/01770/steinj/rna_assembly/contig_annotation/test_data/SperuDNc5l100.fa > query/SperuDNc5l100-sample.fa
+# Need to change any references to /usr/local/bin/perl to #!/usr/bin/env perl
+# Need to replace any hard-coded refs to blastall. For sake of portability, I have bundled blast-2.2.5 from [ftp://ftp.ncbi.nlm.nih.gov/blast/executables/release/LATEST/] with the bx_refseq_pipeline application in bin/blast-2.2.25/bin
+{code}
+#PROGRAM="/usr/local/bin/blastall -p blastx"
+PROGRAM="$CWD/bin/blast-2.2.25/bin/blastall -p blastx"
+{code}
+# Replace references to $SGE_TASK_ID with refernces to $TACC_LAUNCHER_TSK_ID
+# Remove embedded SGE commands from child scripts
+# Use bash rather than sh for scripts if possible
+# Modify run_blast_top_hit to accept Task ID as parameter 1 to get around fact that Launcher doesn't export it Task ID $env to child processes
+# Modify run_blast_top_hit to create its own tmp directory inside CWD/tmp/
+# Update parse_blastout and compile to use #!/usr/bin/env perl
+# Strip embedded SGE params from run_postprocess.sh
+# Consolidated sge-err and sge-out into sge-log
+# Need to be sure that JOBS and the core count set in -pe are the same and are a multiple of 16 (for Ranger)
+# Modified BlastPipeline_top_TACC.sh to BlastPipeline_top_TACC_iRODS.sh to demonstrate integration with iRODS to mock up a wrapper template
+# Copied BlastPipeline_top_TACC_iRODS.sh to BlastPipeline_top_TACC_API.sh and modified to be a fully usable wrapper template
+## Wrote app.json to describe the program to the API
+## Checked app.json using jsonlint.com
+## Posted app.json to APPS registry
+### curl -X POST -sku "vaughn:madlh918" -F "fileToUpload=@app.json" https://foundation.iplantc.org/apps-v1/apps
+## Pushed entire directory into /iplant/home/vaughn/applications/bx_refseq_pipeline
+### imkdir 
+### iput -fr bx_refseq_pipeline /iplant/home/vaughn/applications/
+### Subsequent changes can be accomplished via irsync
+### irsync -r bx_refseq_pipeline i:/iplant/home/vaughn/applications/bx_refseq_pipeline
+
+# Cleaned up application directory to remove residual tempfiles
+# Tarred up bin and scripts directories and added tar -zxvf to wrapper script
+# Replaced app script on Data

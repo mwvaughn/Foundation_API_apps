@@ -1,0 +1,35 @@
+{"name":"bx_refseq_pipeline",
+ "parallelism":"parallel",
+ "version":"1.0.0",
+ "helpURI":"http://pods.iplantcollaborative.org/wiki/",
+ "label":"BLASTX RefSeq Annotation Pipeline",
+ "shortDescription":"Annotate contigs using the plant RefSeq database",
+ "longDescription":"",
+ "author":"Josh Stein",
+ "datePublished":"Thu July 21 17:00:52 2011",
+ "tags":["next-gen","annotation", "rnaseq"],
+ "ontology":["http://sswapmeet.sswap.info/nextGen/bx_refseq_pipeline"],
+ "executionHost":"ranger.tacc.teragrid.org",
+ "executionType":"HPC",
+ "deploymentPath":"/iplant/home/vaughn/applications/bx_refseq_pipeline/",
+ "templatePath":"BlastPipeline_top_TACC_API.sh",
+ "testPath":"library/test.sh",
+ "checkponumberable":"false",
+ "modules":["purge","load TACC","swap pgi gcc/4.4.5","load BioPerl/1.6.1","load launcher"],
+ "inputs":[
+    {"id":"queryFile",
+     "value":
+        {"default":"/vaughn/bx/SperuDNc5l100-sample.fa",
+         "validator":"",
+         "required":true,
+         "visible":true},
+     "details":
+        {"label":"Contig library",
+         "description":"FASTA nucleotide format only please."},
+     "semantics":
+        {"ontology":["http://sswapmeet.sswap.info/util/Sequence"],
+         "minCardinality":1,
+         "fileTypes":["fasta-0"]}}],
+ "parameters":[],
+ "outputs":[]}
+ 

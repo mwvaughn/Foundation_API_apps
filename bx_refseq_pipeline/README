@@ -1,0 +1,81 @@
+This directory contains a pipeline for running blastn, however, 
+it could be altered to run almost any program.  
+
+The basic steps include:
+
+1.  Parsing an input file into multiple files based on the 
+    number of jobs  
+2.  Running blast and a parsing script
+3.  Compiling together the parsed data from the multiple jobs
+    into a single file
+
+SETTING UP THE PIPELINE:
+Prior to running a pipeline the following steps must be done:
+
+1.  A blastable database must be placed in the reference directory.
+    Blastable databases are created using the formatdb command in
+    the NCBI blast program suite. This is found on the HPCC cluster
+    in the /usr/local/bin directory.
+2.  A fasta formatted query file must be placed in the query
+    directory.
+
+optional changes:
+
+1.  The user can change the blast parameters by altering the
+    parameters listed in the ./scripts/run_blast.sh script
+2.  The user can change the number of jobs by altering the
+    JOBS variable in the BlastPipeline.sh script
+3.  The user can modify the data that is parsed from blast
+    by altering the ./scripts/parse_blastout.pl script
+4.  The user can change the queue, blades or memory requirements
+    by altering these in the BlastPipeline.sh script.
+    This is done by changing requirements in the qsub commands.
+    Currently, the pipeline is set up to run on the 8GB blades
+    and requires that the job have at least 3.5G of memory.
+    This will limit the number of jobs per blade to 2.  This 
+    requirement was put in place for a job with large memory
+    requirements and therefore could be altered for a smaller run.  
+RUNNING THE PIPELINE:
+In order to run the pipeline the user must run the core pipeline
+script called: BlastPipeline.sh
+The script must be run from the same location that the pipeline 
+files reside.  So typically, a user would do the following:
+
+mkdir my_run
+cd my_run
+cp ~hurwitz/example/generic-blastn/blastpipe.tar .
+tar -xvf blastpipe.tar
+cp myquery.fa ./query
+cp blastdb.n* ./reference(assumes you have already created blastdb)
+screen -S myscreen (it is good to put it in a screen session in case the shell times out for any reason)
+./BlastPipeline.sh (runs the pipeline)
+
+RESULTS:
+The results from the analysis are written to the final-out directory.  Due to space issues only the individual parsed files are kept.
+
+The columns in the results file are:
+$result->query_name,           #1
+$result->query_length,         #2
+$hit->name,                    #3
+$hit->length(),                #4
+$hit_count,                    #5
+$hsp->rank,                    #6
+$hsp->evalue(),                #7
+$hsp->score,                   #8
+$hsp->frac_identical('total'), #9
+$hsp->start('query'),          #10
+$hsp->end('query'),            #11
+$hsp->gaps('query'),           #12
+$hsp->frac_identical('query'), #13 
+$hsp->strand('query'),         #14
+$hsp->start('hit'),            #15
+$hsp->end('hit'),              #16
+$hsp->gaps('hit'),             #17
+$hsp->frac_identical('hit'),   #18
+$hsp->strand('hit'),           #19
+$result->query_description,    #20
+$hit->description,             #21
+ 
+If you have any questions on running this pipeline or designing
+a new pipeline based on this one.  Please contact:
+Bonnie Hurwitz at hurwitz@cshl.edu
